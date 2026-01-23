@@ -1,12 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sede Electrónica GF - Mensaje</title>
 </head>
 <body>
+
+    <table border="1" width="600" align="center" cellpadding="10">
+        <tr>
+            <td>
+                <h1 align="center">SEDE ELECTRÓNICA GF</h1>
+                <hr>
+                
+                <table border="0" width="100%" cellpadding="5">
+                    <tr>
+                        <td align="center">
+                            <% 
+                                // Lógica básica con Scriptlet para decidir qué mostrar
+                                // Se recupera el flag de éxito/fracaso
+                                Boolean registrado = (Boolean) request.getAttribute("registrado");
+                                
+                                if (registrado != null && registrado) { 
+                            %>
+                                <p><b>La grabación se ha realizado correctamente en registro. Guarde el siguiente número de registro:</b></p>
+                                <br>
+                                <p><b>Número registro: <%= request.getAttribute("numeroRegistro") %></b></p>
+                                <p><b>Fecha de registro: <%= request.getAttribute("fechaRegistro") %></b></p>
+                            
+                            <% } else { %>
+                                
+                                <br>
+                                <p><b>No se ha registrado el trámite. Error al realizar la grabación.</b></p>
+                                <br>
+                            
+                            <% } %>
+                        </td>
+                    </tr>
+                </table>
+                
+                <br><br>
+                
+                <table border="0" width="100%">
+                    <tr>
+                        <td align="center">
+                            <a href="registro.jsp"><button>Nuevo Registro</button></a>
+                            
+                            <a href="buscar.jsp"><button>Consulta Registro</button></a>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr>
+                <p align="center">
+                    <small>C/Gabilondo, 23-47007 Valladolid 983 471600/471026 www.gregoriofer.com<br>
+                    centro@gregoriofer.com</small>
+                </p>
+            </td>
+        </tr>
+    </table>
 
 </body>
 </html>
