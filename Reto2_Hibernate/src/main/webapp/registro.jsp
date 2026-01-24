@@ -10,8 +10,8 @@
 <title>Pagina de registro</title>
 </head>
 	<%
-        //EntidadesDAO dao = new EntidadesDAO();
-        //List<Entidades> listaEntidades = dao.obtenerTodasEntidades();
+        EntidadesDAO dao = new EntidadesDAO();
+        List<Entidades> listaEntidades = dao.obtenerTodasEntidades();
     %>
 <body>
 <form action="ServletRegistro" method="post">
@@ -37,7 +37,16 @@
             <td>ENTIDAD:</td>
             <td>
                 <select name="entidad" required>
-                	<option value="">-- Seleccione --</option>     
+                	<option value="">-- Seleccione --</option>  
+                	<% 
+                       if(listaEntidades != null) {
+                           for(Entidades e : listaEntidades) { 
+                    %>
+                           <option value="<%= e.getNombre() %>"><%= e.getNombre() %></option>
+                    <% 
+                           } 
+                       }
+                    %>   
             </td>
         </tr>
         <tr>
