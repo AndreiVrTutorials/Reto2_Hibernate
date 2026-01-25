@@ -6,79 +6,56 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import com.gf.sede.entities.Registros;
+import com.gf.sede.ln.RegistrosLN;
 
-import com.gf.sede.entities.Entidades;
-
-/**
- * Servlet implementation class servletSede
- */
 @WebServlet("/ServletRegistro")
 public class ServletRegistro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
+    // Instanciamos la lógica de negocio
+    private RegistrosLN registrosLN = new RegistrosLN();
+
     public ServletRegistro() {
         super();
-        // TODO Auto-generated constructor stub
     }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		String dni = request.getParameter("dni");
-		String nombre = request.getParameter("nombre");
-		String apellidos = request.getParameter("apellidos");
-		String tramite = request.getParameter("tramite");
-		String idEntidad = request.getParameter("entidad");
+        // Recuperamos parámetros
+		String accion = request.getParameter("accion");
+        
+        // Si es GRABAR (Viene de registro.jsp)
+        if ("grabar".equals(accion)) {
+            String dni = request.getParameter("dni");
+            String nombre = request.getParameter("nombre");
+            String apellidos = request.getParameter("apellidos");
+            String tramite = request.getParameter("tramite");
+            String entidad = request.getParameter("entidad");
 
-		boolean exito = false;
-		String numeroRegistro = ""; 
-		String mensajeError = "";
-			
-		try {
-			//Validacion DNi
-			if(dni == null || !dni.matches("\\d{8}[A-Za-z]")) {
-				exito = false;
-				mensajeError = "El dni tiene formato incorrecto";
-			}else {//creamos el numero de registro
-				if(apellidos.length() >=3 && nombre.length() >=2) {
-					String parteNombre = nombre.substring(0,2);
-					String parteApellido = apellidos.substring(0,3);
-					String parteDNI = dni.substring(5,  8);
-						
-					numeroRegistro = parteNombre + parteApellido + parteDNI;
-						
-					//Entidades entidad = new Entidades();
-		            //entidad.setRegistroses(Integer.parseInt(request.getParameter("entidad")));//esto no se porque no va
-					//HAY QUE RELLENAR EL OBJETO REGISTROS
-					exito = true;
-				}else {
-					exito = false;
-					mensajeError = "El nombre o el apellido es demasiado corto (min 3 letras apellido, min 2 letras nombre";
-				}
-					
-			}
-			if(exito) {
-				request.setAttribute("registrado", true);
-				request.setAttribute("numeroRegistro", numeroRegistro);
-				request.setAttribute("fechaRegistro", new Date());
-			}else {
-				request.setAttribute("registrado", false);
-				request.setAttribute("error", mensajeError);
-			}
-			request.getRequestDispatcher("mensaje.jsp").forward(request, response);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			request.setAttribute("registrado", false);
-			request.getRequestDispatcher("mensaje.jsp").forward(request, response);
-		}
-
+            try {
+                // LLAMADA A LA LÓGICA (LN)
+                // Aquí se verifica, se crea el código y se guarda en BDD
+                Registros registroOK = registrosLN.procesarAlta(dni, nombre, apellidos, tramite, entidad);
+                
+                // Si todo va bien, preparamos datos para mensaje.jsp
+                request.setAttribute("registrado", true);
+                request.setAttribute("numeroRegistro", registroOK.getNumeroRegistro());
+                request.setAttribute("fechaRegistro", registroOK.getFecha());
+                
+            } catch (Exception e) {
+                // Si falla validación o base de datos
+                e.printStackTrace();
+                request.setAttribute("registrado", false);
+                request.setAttribute("error", e.getMessage());
+            }
+            
+            // Reenviamos a la vista
+            request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+        }
+        // Si es BUSCAR (Viene de buscar.jsp)
+        else if ("buscar".equals(accion)) {
+             // ... lógica de buscar ...
+        }
 	}
-
 }
