@@ -6,14 +6,12 @@ import com.gf.sede.entities.Registros;
 
 public class RegistrosDAO {
 
-    // Método para guardar el registro completo
     public void guardarRegistro(Registros registro) {
-        // Usamos la configuración de Hibernate
         Session session = new org.hibernate.cfg.Configuration().configure().buildSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(registro); // Guarda el objeto en la tabla
+            session.save(registro);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) tx.rollback();
@@ -23,7 +21,6 @@ public class RegistrosDAO {
         }
     }
 
-    // Método para buscar (necesario para el buscador)
     public Registros buscarPorNumeroRegistro(String numeroRegistro) {
         Session session = new org.hibernate.cfg.Configuration().configure().buildSessionFactory().openSession();
         Registros registro = null;

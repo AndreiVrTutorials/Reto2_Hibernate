@@ -19,24 +19,24 @@
 		<tr><td colspan="2"><h1>SEDE ELECTRONICA DE GF</h1></td></tr>
 		<tr>
 			<td>DNI solicitante:</td>
-			<td><input type="text" name="dni" required maxlength="9"></td>
+			<td><input type="text" name="dni" maxlength="9"></td>
 		</tr>
 		<tr>
 			<td>NOMBRE solicitante:</td>
-			<td><input type="text" name="nombre" required maxlength="50"></td>
+			<td><input type="text" name="nombre" maxlength="50"></td>
 		</tr>
 		<tr>
 			<td>APELLIDOS solicitante:</td>
-			<td><input type="text" name="apellidos" required maxlength="100"></td>
+			<td><input type="text" name="apellidos" maxlength="100"></td>
 		</tr>
 		<tr>
 			<td>TRÁMITE:</td>
-			<td><input type="text" name="tramite" required maxlength="150"></td>
+			<td><input type="text" name="tramite" maxlength="150"></td>
 		</tr>
 		<tr>
             <td>ENTIDAD:</td>
             <td>
-                <select name="entidad" required>
+                <select name="entidad" >
                 	<option value="">-- Seleccione --</option>  
                 	<% 
                        if(listaEntidades != null) {
@@ -50,8 +50,7 @@
             </td>
         </tr>
         <tr>        	
-        	<td colspan="2" style="text-align: right;"><input type="submit" name="accion" value="Buscar"></td>
-        	<td colspan="2" style="text-align: right;"><input type="submit" name="accion" value="Grabar"></td>
+        	<td colspan="2" style="text-align: right;"><input type="submit" name="accion" value="Buscar"><input type="submit" name="accion" value="Grabar"></td>
         </tr>
 	</table>
 </form>

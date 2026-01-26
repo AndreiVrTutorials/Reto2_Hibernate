@@ -15,9 +15,7 @@
                 <hr>
                 
                 <% 
-                   // Recuperamos el objeto que envió el Servlet
                    Registros reg = (Registros) request.getAttribute("registro");
-                   // Evitamos error si alguien entra directo a la pagina sin buscar
                    if(reg == null) reg = new Registros(); 
                 %>
 

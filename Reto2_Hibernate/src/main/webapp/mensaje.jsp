@@ -17,10 +17,8 @@
                     <tr>
                         <td align="center">
                             <% 
-                                // Lógica básica para decidir qué mostrar
                                 Boolean registrado = (Boolean) request.getAttribute("registrado");
                                 
-                                // Recuperamos también el mensaje de error por si acaso
                                 String mensajeError = (String) request.getAttribute("error");
                                 
                                 if (registrado != null && registrado) { 
@@ -35,7 +33,7 @@
                                 <br>
                                 <p><b>No se ha registrado el trámite. Error al realizar la grabación.</b></p>
                                 
-                                <%-- Si el Servlet nos ha mandado un motivo específico, lo mostramos aquí en rojo --%>
+                               
                                 <% if (mensajeError != null) { %>
                                     <p style="color: red; font-weight: bold;">
                                         Motivo: <%= mensajeError %>
