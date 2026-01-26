@@ -72,6 +72,9 @@ public class ServletRegistro extends HttpServlet {
                 request.setAttribute("registrado", false); // Para reusar la lógica de error de mensaje.jsp
                 request.getRequestDispatcher("mensaje.jsp").forward(request, response);
             }
+        }else if ("Buscar".equals(accion))	{
+        	request.getRequestDispatcher("buscar.jsp").forward(request, response);
+        	
         }
 	}
 }
