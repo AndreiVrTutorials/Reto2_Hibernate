@@ -50,7 +50,7 @@
             </td>
         </tr>
         <tr>
-        	<td colspan="2" style="text-align: right;"><input type="submit" value="Grabar"></td>
+        	<td colspan="2" style="text-align: right;"><input type="submit" name="accion" value="Grabar"></td>
         </tr>
 	</table>
 </form>

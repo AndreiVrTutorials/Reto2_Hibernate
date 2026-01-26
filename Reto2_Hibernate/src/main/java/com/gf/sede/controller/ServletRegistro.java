@@ -26,7 +26,7 @@ public class ServletRegistro extends HttpServlet {
 		String accion = request.getParameter("accion");
         
         // Si es GRABAR (Viene de registro.jsp)
-        if ("grabar".equals(accion)) {
+        if ("Grabar".equals(accion)) {
             String dni = request.getParameter("dni");
             String nombre = request.getParameter("nombre");
             String apellidos = request.getParameter("apellidos");
@@ -55,7 +55,23 @@ public class ServletRegistro extends HttpServlet {
         }
         // Si es BUSCAR (Viene de buscar.jsp)
         else if ("buscar".equals(accion)) {
-             // ... lógica de buscar ...
+            String numRegBusqueda = request.getParameter("numeroRegistro");
+            
+            // 1. Buscamos usando la lógica de negocio
+            Registros registroEncontrado = registrosLN.buscarRegistro(numRegBusqueda);
+            
+            if (registroEncontrado != null) {
+                // 2. Si existe, lo guardamos en la request para mostrarlo
+                request.setAttribute("registro", registroEncontrado);
+                
+                // 3. Vamos a la pantalla de consultar
+                request.getRequestDispatcher("consultar.jsp").forward(request, response);
+            } else {
+                // 4. Si NO existe, volvemos a buscar.jsp o mensaje.jsp con un error
+                request.setAttribute("error", "No existe ningún registro con el código: " + numRegBusqueda);
+                request.setAttribute("registrado", false); // Para reusar la lógica de error de mensaje.jsp
+                request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+            }
         }
 	}
 }

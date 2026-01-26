@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.gf.sede.entities.Registros" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,26 +14,33 @@
                 <h1 align="center">SEDE ELECTRÓNICA GF</h1>
                 <hr>
                 
+                <% 
+                   // Recuperamos el objeto que envió el Servlet
+                   Registros reg = (Registros) request.getAttribute("registro");
+                   // Evitamos error si alguien entra directo a la pagina sin buscar
+                   if(reg == null) reg = new Registros(); 
+                %>
+
                 <table border="0" width="100%" cellspacing="5">
                     <tr>
                         <td align="right" width="40%"><b>DNI solicitante:</b></td>
-                        <td width="60%"><input type="text" value="" disabled style="width: 95%;"></td>
+                        <td width="60%"><input type="text" value="<%= (reg.getDni() != null) ? reg.getDni() : "" %>" disabled style="width: 95%;"></td>
                     </tr>
                     <tr>
                         <td align="right"><b>NOMBRE solicitante:</b></td>
-                        <td><input type="text" value="" disabled style="width: 95%;"></td>
+                        <td><input type="text" value="<%= (reg.getNombre() != null) ? reg.getNombre() : "" %>" disabled style="width: 95%;"></td>
                     </tr>
                     <tr>
                         <td align="right"><b>APELLIDOS solicitante:</b></td>
-                        <td><input type="text" value="" disabled style="width: 95%;"></td>
+                        <td><input type="text" value="<%= (reg.getApellidos() != null) ? reg.getApellidos() : "" %>" disabled style="width: 95%;"></td>
                     </tr>
                     <tr>
                         <td align="right"><b>TRÁMITE:</b></td>
-                        <td><input type="text" value="" disabled style="width: 95%;"></td>
+                        <td><input type="text" value="<%= (reg.getTramite() != null) ? reg.getTramite() : "" %>" disabled style="width: 95%;"></td>
                     </tr>
                     <tr>
                         <td align="right"><b>ENTIDAD:</b></td>
-                        <td><input type="text" value="" disabled style="width: 95%;"></td>
+                        <td><input type="text" value="<%= (reg.getEntidades() != null) ? reg.getEntidades().getNombre() : "" %>" disabled style="width: 95%;"></td>
                     </tr>
                 </table>
                 
@@ -42,7 +50,6 @@
                     <tr>
                         <td align="center">
                             <a href="buscar.jsp"><button>Nueva Busqueda</button></a>
-                            &nbsp;&nbsp;&nbsp;
                             <a href="registro.jsp"><button>Nuevo Registro</button></a>
                         </td>
                     </tr>

@@ -26,7 +26,7 @@ public class RegistrosLN {
         String parteApellido = apellidos.substring(0, 2).toUpperCase(); 
         String parteDNI = dni.substring(dni.length() - 3).toUpperCase();
         
-        String numeroRegistroGenerado = "REG " + parteNombre + parteApellido + parteDNI;
+        String numeroRegistroGenerado = "REG-" + parteNombre + parteApellido + parteDNI;
 
         Entidades entidadObjeto = null;
         for(Entidades e : entidadesDAO.obtenerTodasEntidades()){
