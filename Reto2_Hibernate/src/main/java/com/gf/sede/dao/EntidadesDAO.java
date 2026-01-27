@@ -29,7 +29,9 @@ public class EntidadesDAO {
 				session.getTransaction().rollback();
 			}
 		}finally {
-			sessionFactory.close();
+			if (session != null && session.isOpen()) {
+			    session.close();
+			}
 		}
 		return lista;
 	}
