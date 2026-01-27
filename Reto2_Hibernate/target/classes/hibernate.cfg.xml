@@ -10,7 +10,7 @@
   <property name="hibernate.hbm2ddl.auto">none</property>
   <property name="hibernate.search.autoregister_listeners">true</property>
   <property name="hibernate.validator.apply_to_ddl">false</property>
-  <property name="current_session_context_class">true</property>
+  <property name="current_session_context_class">thread</property>
   <mapping resource="com/gf/sede/entities/Entidades.hbm.xml"/>
   <mapping resource="com/gf/sede/entities/Registros.hbm.xml"/>
  </session-factory>
