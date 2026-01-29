@@ -6,6 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import com.gf.sede.entities.Registros;
 import com.gf.sede.ln.RegistrosLN;
 
@@ -32,10 +35,12 @@ public class ServletRegistro extends HttpServlet {
 
             try {
                 Registros registroOK = registrosLN.procesarAlta(dni, nombre, apellidos, tramite, entidad);
+                SimpleDateFormat formateador = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+                String fechaFormateada = formateador.format(registroOK.getFecha());
                 
                 request.setAttribute("registrado", true);
                 request.setAttribute("numeroRegistro", registroOK.getNumeroRegistro());
-                request.setAttribute("fechaRegistro", registroOK.getFecha());
+                request.setAttribute("fechaRegistro", fechaFormateada);
                 
             } catch (Exception e) {
                 e.printStackTrace();
